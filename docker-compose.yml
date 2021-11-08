@@ -39,41 +39,43 @@ services:
   #     SERVER_API_HOST: http://server
   #     SERVER_API_PORT: 3000
   #     SERVER_API_PATH: shop-api
-  database:
-    image: postgres
-    environment:
-      POSTGRES_USER: ghienan
-      POSTGRES_PASSWORD: Admin@123
-      POSTGRES_DB: ecommerce
-      PGDATA: /var/lib/postgresql/data
-    volumes:
-      - postgres:/var/lib/postgresql/data
-      #- ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
-    ports:
-      - "5432:5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-      PGADMIN_DEFAULT_PASSWORD: Phong@123
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-       - pgadmin:/var/lib/pgadmin
-    ports:
-      - "${PGADMIN_PORT:-5050}:80"
-    networks:
-      - postgres
-    restart: unless-stopped
-    depends_on:
-      - database
-
-networks:
-  postgres:
-    driver: bridge
-
-volumes:
-    postgres:
-    pgadmin:
+  # database:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_USER: ghienan
+  #     POSTGRES_PASSWORD: Admin@123
+  #     POSTGRES_DB: ecommerce
+  #     PGDATA: /var/lib/postgresql/data
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
+  #     #- ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - postgres
+  #   restart: unless-stopped
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+  #     PGADMIN_DEFAULT_PASSWORD: Phong@123
+  #     PGADMIN_CONFIG_SERVER_MODE: 'False'
+  #   volumes:
+  #      - pgadmin:/var/lib/pgadmin
+  #   ports:
+  #     - "${PGADMIN_PORT:-5050}:80"
+  #   networks:
+  #     - postgres
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - database
+    database:
+        image: postgres
+        volumes:
+          - /var/lib/postgresql/data
+        ports:
+          - 5432:5432
+        environment:
+          POSTGRES_USER: ghienan
+          POSTGRES_PASSWORD: Admin@123
+          POSTGRES_DB: ecommerce
