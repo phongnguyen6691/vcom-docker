@@ -9,6 +9,8 @@ services:
     #command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:server"]
     volumes:
       - /usr/src/app
+    networks:
+      - postgres
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
@@ -27,6 +29,8 @@ services:
     volumes:
       - /usr/src/app
     tty: true
+    networks:
+      - postgres
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
