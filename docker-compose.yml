@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    command: ["./wait-for-it.sh", "database:5432", "--"]
+    command: ["database:5432", "--"]
     volumes:
       - /usr/src/app
     environment:
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["./wait-for-it.sh", "database:5432", "--"]
+    command: ["database:5432", "--"]
     volumes:
       - /usr/src/app
     environment:
