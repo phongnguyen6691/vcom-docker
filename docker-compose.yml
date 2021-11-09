@@ -6,12 +6,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:server"]
+    command: ["./wait-for-it.sh", "database:5432", "--"]
     volumes:
       - /usr/src/app
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
+      POSTGRES_USER: ghienan
+      POSTGRES_PASSWORD: Admin@123
+      POSTGRES_DB: ecommerce
     depends_on:
       - database
       - worker
@@ -19,12 +22,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:worker"]
+    command: ["./wait-for-it.sh", "database:5432", "--"]
     volumes:
       - /usr/src/app
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
+      POSTGRES_USER: ghienan
+      POSTGRES_PASSWORD: Admin@123
+      POSTGRES_DB: ecommerce
     depends_on:
       - database
   # storefront:
@@ -48,7 +54,7 @@ services:
       PGDATA: /var/lib/postgresql/data
     volumes:
       - postgres:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/
+      - ./init.sql/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     networks:
