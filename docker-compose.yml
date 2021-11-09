@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    #command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:server"]
+    command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:server"]
     volumes:
       - /usr/src/app
     networks:
@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    #command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:worker"]
+    command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:worker"]
     volumes:
       - /usr/src/app
     tty: true
