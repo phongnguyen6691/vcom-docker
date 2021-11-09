@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    command: ["database:5432", "--"]
+    #command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:server"]
     volumes:
       - /usr/src/app
     environment:
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["database:5432", "--"]
+    #command: ["./wait-for-it.sh", "database:5432", "--", "yarn", "run:worker"]
     volumes:
       - /usr/src/app
     environment:
@@ -54,7 +54,7 @@ services:
       PGDATA: /var/lib/postgresql/data
     volumes:
       - postgres:/var/lib/postgresql/data
-      - ./init.sql/:/docker-entrypoint-initdb.d/
+      - ./init.sql:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     networks:
